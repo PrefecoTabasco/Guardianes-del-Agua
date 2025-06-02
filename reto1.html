@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reto 1 - Cazador de Plásticos</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #e0f7fa;
+      padding: 20px;
+      text-align: center;
+    }
+    .medalla {
+      display: none;
+      margin-top: 20px;
+    }
+    .medalla img {
+      width: 150px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Reto 1: Cazador de Plásticos</h1>
+  <p>Sube 3 fotos de plásticos de un solo uso que encontraste.</p>
+
+  <form id="retoForm">
+    <input type="file" accept="image/*" required><br><br>
+    <input type="file" accept="image/*" required><br><br>
+    <input type="file" accept="image/*" required><br><br>
+    <button type="submit">Enviar Reto</button>
+  </form>
+
+  <div class="medalla" id="medalla">
+    <h2>¡Reto completado! 🏅</h2>
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Medalla">
+  </div>
+
+  <script>
+    document.getElementById('retoForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const inputs = this.querySelectorAll('input[type="file"]');
+      let completado = true;
+
+      // Verificamos si los 3 inputs tienen archivo
+      inputs.forEach(input => {
+        if (!input.files.length) completado = false;
+      });
+
+      if (completado) {
+        // Guardar estado en localStorage
+        localStorage.setItem('reto1_completado', 'true');
+
+        // Mostrar medalla
+        document.getElementById('medalla').style.display = 'block';
+
+        // Opcional: redirigir al siguiente reto o mostrar botón para avanzar
+      } else {
+        alert("Debes subir las 3 imágenes para completar el reto.");
+      }
+    });
+
+    // Si ya estaba completado
+    if (localStorage.getItem('reto1_completado') === 'true') {
+      document.getElementById('medalla').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('../img/agua-fondo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logo-izquierdo {
+  width: 100px;
+  height: auto;
+}
+
+.titulo-central {
+  text-align: center;
+}
+
+.titulo-central h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 2em;
+}
+
+/* Barra de navegación */
+        nav {
+            background-color: #004d40; /* Verde más oscuro */
+            padding: 15px; /* Espaciado interno */
+            text-align: center; /* Centra los enlaces */
+        }
+
+        /* Estilo de los enlaces del menú */
+        nav a {
+            color: white; /* Texto blanco */
+            margin: 0 20px; /* Espacio horizontal entre enlaces */
+            text-decoration: none; /* Sin subrayado */
+            font-weight: bold; /* Negrita */
+        }
+
+        /* Efecto al pasar el mouse sobre los enlaces */
+        nav a:hover {
+            text-decoration: underline; /* Subrayado al pasar el cursor */
+            
+        }
+header {
+  background-color: #00796b;
+  padding: 20px;
+  text-align: center;
+}
+
+main.niveles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+section {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #00bcd4;
+  border-radius: 15px;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+  text-align: center;
+}
+
+section h2 {
+  color: #00e5ff;
+}
+
+#menu {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #00796b;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+#menu:hover {
+  background-color: #004d40;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.pie-pagina {
+  display: flex;
+  justify-content: space-between;
+  background-color: #004d40;
+  color: white;
+  padding: 20px 40px;
+  flex-wrap: wrap;
+}
+
+.pie-pagina .seccion {
+  flex: 1;
+  min-width: 200px;
+  margin: 10px;
+}
+
+.pie-pagina .seccion h3 {
+  border-bottom: 1px solid #555;
+  padding-bottom: 5px;
+}
+
+.pie-pagina .seccion a {
+  color: #4fc3f7;
+  text-decoration: none;
+}
+#derecho
+{
+ text-decoration-color: black;
+ color: black;
+ text-align: center;
+}
+h1, h2 {
+      color: #00e5ff;
+    }

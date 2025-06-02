@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nivel 1 - Reto Explorador del Agua</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e0f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+    }
+    h2 {
+      color: #00796b;
+    }
+    input[type="file"], input[type="text"] {
+      margin-bottom: 10px;
+      display: block;
+    }
+    button {
+      background: #00695c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #004d40;
+    }
+    #cargando {
+      display: none;
+      color: orange;
+      margin: 10px 0;
+    }
+    .preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .preview img {
+      width: 100px;
+      border-radius: 8px;
+      border: 2px solid #009688;
+    }
+    .insignia {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .insignia img {
+      width: 150px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Nivel 1: Explorador del Agua</h1>
+  <p><strong>Objetivo:</strong> Conocer el problema del plástico y los microplásticos.</p>
+
+  <h2>📸 Fotoreto: Cazador de Plásticos</h2>
+  <p>Sube 3 fotos de plásticos de un solo uso que hayas encontrado en tu casa o comunidada.</p>
+  <input type="file" id="foto1" accept="image/*" onchange="mostrarMiniatura(this)">
+  <input type="file" id="foto2" accept="image/*" onchange="mostrarMiniatura(this)">
+  <input type="file" id="foto3" accept="image/*" onchange="mostrarMiniatura(this)">
+  <div id="previewFotos" class="preview"></div>
+
+  <h2>🧾 Infografía Exprés</h2>
+  <p>Crea una infografía sencilla (a mano o digital) sobre los efectos de los microplásticos en los ríos o en la salud humaban. <br>Sube tu infografía digital (PDF o imagen).</p>
+  <input type="file" id="infografia" accept="image/*,application/pdf" onchange="mostrarMiniatura(this)">
+  <div id="previewInfografia" class="preview"></div>
+
+  <h2>🧠 Trivia "El Plástico Ataca"</h2>
+  <p>Contesta <a href="https://example.com/trivia" target="_blank">esta trivia</a> y sube una captura de pantalla.</p>
+  <input type="file" id="capturaTrivia" accept="image/*" onchange="mostrarMiniatura(this)">
+  <div id="previewTrivia" class="preview"></div>
+
+  <div id="cargando">🔄 Subiendo archivos...</div>
+
+  <button onclick="verificarRetos()">Enviar y calificar</button>
+
+  <div id="nombreSection" style="display:none; margin-top:20px;">
+    <h3>🎓 Escribe tu nombre completo para guardar tu logro:</h3>
+    <input type="text" id="nombreAlumnoFinal" placeholder="Nombre completo">
+    <button onclick="finalizar()">Finalizar</button>
+  </div>
+
+  <div class="insignia" id="insigniaFinal">
+    <h2 id="mensajeFinal"></h2>
+    <div id="resumenFinal" class="preview"></div>
+    <img src="https://cdn-icons-png.flaticon.com/512/9293/9293750.png" alt="Insignia Nivel 1">
+    <br><br>
+    <a href="nivel2.html">Ir al Nivel 2</a>
+  </div>
+</main>
+
+<script>
+  function mostrarMiniatura(input) {
+    const previewId = input.id.includes("foto") ? "previewFotos"
+                    : input.id === "infografia" ? "previewInfografia"
+                    : "previewTrivia";
+    const contenedor = document.getElementById(previewId);
+    contenedor.innerHTML = "";
+
+    [...input.files].forEach(file => {
+      if (file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          contenedor.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        const p = document.createElement("p");
+        p.textContent = "Archivo: " + file.name;
+        contenedor.appendChild(p);
+      }
+    });
+  }
+
+  function verificarRetos() {
+    const fotos = [foto1, foto2, foto3].every(input => input.files.length > 0);
+    const infografia = document.getElementById("infografia").files.length > 0;
+    const trivia = document.getElementById("capturaTrivia").files.length > 0;
+
+    if (!fotos || !infografia || !trivia) {
+      alert("Debes subir los 3 archivos del fotoreto, la infografía y la captura de trivia.");
+      return;
+    }
+
+    document.getElementById('cargando').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('cargando').style.display = 'none';
+      document.getElementById('nombreSection').style.display = 'block';
+    }, 2000);
+  }
+
+  function finalizar() {
+    const nombre = document.getElementById('nombreAlumnoFinal').value.trim();
+    if (!nombre) {
+      alert("Por favor, ingresa tu nombre.");
+      return;
+    }
+
+    const resumen = document.getElementById('resumenFinal');
+    resumen.innerHTML = '';
+    ['previewFotos', 'previewInfografia', 'previewTrivia'].forEach(id => {
+      const miniaturas = document.getElementById(id).cloneNode(true);
+      resumen.appendChild(miniaturas);
+    });
+
+    document.getElementById('mensajeFinal').textContent = `🎉 Felicidades ${nombre}, has completado el primer reto. ¡Sigue adelante! ¡Reto completado! 🏅`
+    document.getElementById('insigniaFinal').style.display = 'block';
+    localStorage.setItem('nivel1Completado', 'true');
+    localStorage.setItem('nombreAlumno', nombre);
+  }
+</script>
+</body>
+</html>
